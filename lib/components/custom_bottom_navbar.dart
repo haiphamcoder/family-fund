@@ -1,4 +1,6 @@
+import 'package:family_fund/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex; // Chỉ mục của mục đang chọn
@@ -13,44 +15,54 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      height: 85,
       decoration: const BoxDecoration(
-        color: Color(0xFFE3F2FD), // Màu nền xanh nhạt
+        color: AppColors.navBarBackground, // Màu nền xanh nhạt
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
         ),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildNavItem(
-            icon: Icons.home,
+            iconPath: 'assets/icons/home.svg',
             index: 0,
+            width: 35,
+            height: 35,
             isSelected: currentIndex == 0,
             onTap: onTap,
           ),
           _buildNavItem(
-            icon: Icons.bar_chart,
+            iconPath: 'assets/icons/statistics.svg',
             index: 1,
+            width: 35,
+            height: 35,
             isSelected: currentIndex == 1,
             onTap: onTap,
           ),
           _buildNavItem(
-            icon: Icons.swap_horiz,
+            iconPath: 'assets/icons/transaction.svg',
             index: 2,
+            width: 35,
+            height: 35,
             isSelected: currentIndex == 2,
             onTap: onTap,
           ),
           _buildNavItem(
-            icon: Icons.layers,
+            iconPath: 'assets/icons/category.svg',
             index: 3,
+            width: 35,
+            height: 35,
             isSelected: currentIndex == 3,
             onTap: onTap,
           ),
           _buildNavItem(
-            icon: Icons.person,
+            iconPath: 'assets/icons/account.svg',
             index: 4,
+            width: 35,
+            height: 35,
             isSelected: currentIndex == 4,
             onTap: onTap,
           ),
@@ -60,7 +72,9 @@ class CustomBottomNavBar extends StatelessWidget {
   }
 
   Widget _buildNavItem({
-    required IconData icon,
+    required String iconPath,
+    double? width,
+    double? height,
     required int index,
     required bool isSelected,
     required ValueChanged<int> onTap,
@@ -69,17 +83,22 @@ class CustomBottomNavBar extends StatelessWidget {
       onTap: () => onTap(index),
       child: Container(
         padding: const EdgeInsets.all(8),
+        width: 54,
+        height: 54,
         decoration: isSelected
             ? BoxDecoration(
                 color: const Color(0xFF5087DB), // Màu xanh cho mục được chọn
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(10),
               )
             : null,
-        child: Icon(
-          icon,
-          color: isSelected ? Colors.white : const Color(0xFF0E3E3E), // Đổi màu icon
-          size: 28,
-        ),
+        child: SvgPicture.asset(
+          iconPath,
+          width: width,
+          height: height,
+          colorFilter: isSelected
+              ? const ColorFilter.mode(AppColors.iconSelected, BlendMode.srcIn)
+              : const ColorFilter.mode(AppColors.iconUnselected, BlendMode.srcIn), 
+        )
       ),
     );
   }

@@ -23,4 +23,12 @@ class AppColors {
   // Error Color
   static const Color error = Color(0xFFE57373); // Màu đỏ báo lỗi
   static const Color success = Color(0xFF81C784); // Màu xanh báo thành công
+
+  // Icon Colors
+  static const Color iconSelected = Color(0xFFF1FFF3);
+  static const Color iconUnselected = Color(0xFF0E3E3E);
+
+  // Navigation Bar Colors
+  static const Color navBarBackground = Color(0xFFCCE4FD); // Màu nền NavBar
+
 }
